@@ -38,14 +38,20 @@ class Mesh:
                 parts = line.strip().split()
                 x, y, z = map(float, parts[1:])
                 self.vertices[vertex_idx] = Vertex(vertex_idx, (x, y, z))
-                vertex_idx += 1
+                vertex_idx = vertex_idx + 1
             elif line.startswith("f "):
                 parts = line.strip().split()[1:]
                 indices = [int(p.split("/")[0]) for p in parts]
                 face = Face(face_idx)
                 self.faces[face_idx] = face
-                face_idx += 1
+                face_idx = face_idx + 1
                 self._add_face(indices, face)
+        """
+        print(self.vertices, "\n")  # index -> Vertex
+        print(self.half_edges, "\n")  # list of HalfEdge
+        print(self.faces, "\n")  # index -> Face
+        print(self.edge_map, "\n")
+        """
 
     def _add_face(self, indices, face):
         n = len(indices)
@@ -156,7 +162,7 @@ class Mesh:
 
 if __name__ == "__main__":
     mesh = Mesh()
-    mesh.load_obj("modelo.obj")
+    mesh.load_obj("modelo2.obj")
 
     while True:
         print("\nMenu:")
